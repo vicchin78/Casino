@@ -9,10 +9,10 @@ import javax.swing.*;
 
 public class MenuGUI implements ActionListener {
 
-	private JFrame frame;
+	public static JFrame frame;
 	private JLabel title, instructions, balanceDisplay;
 	private Container container;
-	private JButton quit;
+	private JButton quit, slots, blackjack, roulette;
 	private final int WIDTH = 720;
 	private final int HEIGHT = 1280;
 	public static double DEFAULT_BALANCE = 100;
@@ -20,7 +20,8 @@ public class MenuGUI implements ActionListener {
 
 	public MenuGUI(double balance) {
 		this.balance = balance;
-		
+
+		frame = new JFrame("Casino");
 		setUpFrame();
 
 		title = new JLabel("Welcome to the Casino!!!");
@@ -31,13 +32,21 @@ public class MenuGUI implements ActionListener {
 		insertComponent(instructions, JLabel.CENTER + 225, frame.getY() + 40, frame.getWidth(), 60,
 				new Font(("Serif"), Font.BOLD, 30), Color.black);
 
-		balanceDisplay = new JLabel("Balance: $" + balance);
-		insertComponent(balanceDisplay, JLabel.CENTER + 400, frame.getY() + 80, frame.getWidth(), 60,
-				new Font(("Serif"), Font.BOLD, 20), Color.red);
+		balanceDisplay = new JLabel("Currnet Balance: $" + balance);
+		insertComponent(balanceDisplay, JLabel.CENTER + 275, frame.getY() + 80, frame.getWidth(), 60,
+				new Font(("Serif"), Font.BOLD, 15), Color.red);
 
 		quit = new JButton("Quit");
-		insertComponent(quit, 310, 900, 100, 50, new Font(("Serif"), Font.BOLD, 30), Color.black, Color.red);
-		quit.addActionListener(this);
+		insertButton(quit, 310, 900, 100, 50, new Font(("Serif"), Font.BOLD, 30), Color.black, Color.red);
+
+		slots = new JButton("Slots");
+		insertButton(slots, 110, 300, 500, 50, new Font(("Serif"), Font.BOLD, 30), Color.black, Color.yellow);
+
+		blackjack = new JButton("Blackjack");
+		insertButton(blackjack, 110, 500, 500, 50, new Font(("Serif"), Font.BOLD, 30), Color.black, Color.pink);
+
+		roulette = new JButton("Roulette");
+		insertButton(roulette, 110, 700, 500, 50, new Font(("Serif"), Font.BOLD, 30), Color.black, Color.green);
 	}
 
 	public MenuGUI() {
@@ -45,7 +54,6 @@ public class MenuGUI implements ActionListener {
 	}
 
 	private void setUpFrame() {
-		frame = new JFrame("Casino");
 		frame.setVisible(true);
 		frame.setBounds(0, 0, WIDTH, HEIGHT);
 		frame.setLocationRelativeTo(null);
@@ -53,6 +61,7 @@ public class MenuGUI implements ActionListener {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		container = frame.getContentPane();
 		container.setLayout(null);
+		container.setBackground(Color.blue);
 	}
 
 	private void insertComponent(JComponent component, int x, int y, int width, int height, Font font, Color color) {
@@ -64,10 +73,11 @@ public class MenuGUI implements ActionListener {
 		container.add(component);
 	}
 
-	private void insertComponent(JComponent component, int x, int y, int width, int height, Font font, Color colorText,
+	private void insertButton(JButton button, int x, int y, int width, int height, Font font, Color colorText,
 			Color colorBackground) {
-		insertComponent(component, x, y, width, height, font, colorText);
-		component.setBackground(colorBackground);
+		insertComponent(button, x, y, width, height, font, colorText);
+		button.setBackground(colorBackground);
+		button.addActionListener(this);
 	}
 
 	public double getBalance() {
@@ -82,6 +92,21 @@ public class MenuGUI implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == quit) {
 			System.exit(0);
+		}
+		if(e.getSource() == slots)
+		{
+			frame.setVisible(false);
+			new SlotsGUI(this.balance);
+		}
+		if(e.getSource() == blackjack)
+		{
+			frame.setVisible(false);
+			new BlackjackGUI(this.balance);
+		}
+		if(e.getSource() == roulette)
+		{
+			frame.setVisible(false);
+			new RouletteGUI(this.balance);
 		}
 
 	}
