@@ -45,7 +45,7 @@ public class RouletteGUI extends MenuGUI {
 			System.exit(0);
 		}
 		if (e.getSource() == back) {
-			frame.setVisible(false);
+			frame.dispose();
 			System.gc();
 			new MenuGUI(balance);
 		}

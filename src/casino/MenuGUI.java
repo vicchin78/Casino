@@ -94,17 +94,17 @@ public class MenuGUI implements ActionListener {
 			System.exit(0);
 		}
 		if (e.getSource() == slots) {
-			frame.setVisible(false);
+			frame.dispose();
 			System.gc();
 			new SlotsGUI(this.balance);
 		}
 		if (e.getSource() == blackjack) {
-			frame.setVisible(false);
+			frame.dispose();
 			System.gc();
 			new BlackjackGUI(this.balance);
 		}
 		if (e.getSource() == roulette) {
-			frame.setVisible(false);
+			frame.dispose();
 			System.gc();
 			new RouletteGUI(this.balance);
 		}
